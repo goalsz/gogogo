@@ -15,3 +15,6 @@
 /springboottester/springboottester.iml
 /springboottester/.idea
 /springboottester/target
+/cloudparent/cloudparent.iml
+/cloudparent/.idea
+/cloudparent/eureka-server/.mvn
