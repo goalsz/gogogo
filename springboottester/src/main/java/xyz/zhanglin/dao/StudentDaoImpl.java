@@ -1,10 +1,11 @@
 package xyz.zhanglin.dao;
 
 
-import org.springframework.stereotype.Component;
-import xyz.zhanglin.entity.Student;
-
 import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import xyz.zhanglin.entity.Student;
 
 @Component("studentDao")
 public class StudentDaoImpl implements StudentDao{
