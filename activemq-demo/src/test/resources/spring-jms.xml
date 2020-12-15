@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--配置ActiveMQ提供工厂类-->
+    <bean id="activeMQConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://localhost:61616"/>
+    </bean>
+    
+    <bean id="cachingConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="coonnectionFactory" ref="activeMQConnectionFactory"/>
+        <property name="sessionCacheSize" value="10"/>
+    </bean>
+    
+    <!--spring jmsTemplate(如果只接收消息不需要配置)-->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="cachingConnectionFactory"/>
+    </bean>
+
+    <!--队列目的地-->
+    <bean id="testOneQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="zhanglintestOneQueue"/>
+    </bean>
+
+
+    <!--配置监听器-->
+    <bean id="testOneContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <!--连接工厂-->
+        <property name="connectionFactory" ref="cachingConnectionFactory"/>
+        <!--要监听的目标队列-->
+        <property name="destination" ref="testOneQueue"/>
+        <!--监听后调用 接收消息类-->
+        <property name="messageListener" ref="testOneListener"/>
+        <!-- 应用启动不开启消息消费 -->
+        <!-- <property name="autoStartup" value="false"/> -->
+    </bean>
+
+
+
+</beans>
