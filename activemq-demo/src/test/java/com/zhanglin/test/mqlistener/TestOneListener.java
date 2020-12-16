@@ -1,5 +1,6 @@
 package com.zhanglin.test.mqlistener;
 
+import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
@@ -15,7 +16,12 @@ public class TestOneListener implements MessageListener{
 
 	public void onMessage(Message message) {
 		TextMessage msg = (TextMessage) message;
-		logger.info("接受到消息:{}", msg);
+		try {
+			logger.info("接受到消息:{}, 优先级为:{}", msg.getText(), msg.getJMSPriority());
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	

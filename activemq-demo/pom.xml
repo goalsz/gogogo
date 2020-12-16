@@ -15,7 +15,6 @@
     <description>Demo project for ActiveMQ</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
 	
@@ -31,9 +30,20 @@
             <version>3.0.7.RELEASE</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>3.0.7.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-core</artifactId>
             <version>5.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-broker</artifactId>
+            <version>5.16.0</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -47,6 +57,18 @@
             <version>1.7.25</version>
         </dependency>
     </dependencies>
-
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+              	<artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                  <source>${java.version}</source>
+                  <target>${java.version}</target>
+                  <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
